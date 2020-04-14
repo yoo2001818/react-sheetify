@@ -45,3 +45,12 @@ should be enough for this purpose.
 The presentation layer should talk to data store layer using hooks. I haven't
 figured this out yet, but I think it should be simple as regular form library.
 something like `useColumn('A3')` or something?
+
+## Data layer
+We have to store the order of the rows, and actual data of the rows.
+
+The order can be changed dynamically; the user can freely swap rows. To
+implement this, we'd have to tightly manage the data by react-sheetify itself..
+
+If we need to separate between data layer, we could provide data conversion
+layer. But still, order management is necessary.
