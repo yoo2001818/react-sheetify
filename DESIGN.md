@@ -54,3 +54,20 @@ implement this, we'd have to tightly manage the data by react-sheetify itself..
 
 If we need to separate between data layer, we could provide data conversion
 layer. But still, order management is necessary.
+
+... We have two directions for this. We can either depend on the application
+code for this, or we could handle everything by react-sheetify. Since it should
+be general purpose, it'd be a good idea to provide both layers - 'ID' based
+state / focus management, which provides minimal keyboard navigation and
+stuff, and fully controlled state management, which provides all the goodies -
+including undo / redo, async loading, etc.
+
+'ID' based management would need to receive ID and index. Each ID should
+represent the ID of the row - that is, it shouldn't be changed even if the
+row is moved, similar to 'key' attribute of React.
+Index can be freely moved, and the data layer should relocate the node when
+the index has been changed.
+
+fully controlled state, should handle everything by its own - But, instead of
+creating everything twice, we could make something that is built on top of
+ID based management.
