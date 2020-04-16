@@ -71,3 +71,84 @@ the index has been changed.
 fully controlled state, should handle everything by its own - But, instead of
 creating everything twice, we could make something that is built on top of
 ID based management.
+
+## Something like...
+
+If react-sheetify shouldn't manage data on its own...
+
+```tsx
+const Sample = (
+  <SheetProvider>
+    <div>
+      <Col
+        id={[0, 'id']}
+        index={[0, 0]}
+        component={TextInput}
+        value={...}
+        onChange={...}
+      />
+      <Col
+        id={[0, 'name']}
+        index={[0, 1]}
+        component={TextInput}
+        value={...}
+        onChange={...}
+      />
+    </div>
+  </SheetProvider>
+);
+
+// Or...
+const Row = () => {
+  const props = useColumn([0, 'id'], value, onChange);
+  return (
+    <div>
+      <TextInput {...props} />
+    </div>
+  );
+};
+```
+
+If react-sheetify should manage data on its own...
+
+```tsx
+const data = [
+  { id: 1, name: 'a', price: 123 },
+  { id: 2, name: 'b', price: 100 },
+  { id: 3, name: 'c', price: 10 },
+  { id: 4, name: 'd', price: 1 },
+];
+
+const Sample = (
+  <SheetProvider
+    api={api} // Should provide something like 'async getRows, getCols, ...'
+  >
+    <App />
+  </SheetProvider>
+);
+
+const App = () => (
+  <RowList
+    renderRow={(row) => (
+      <Row row={row} />
+    )}
+  />
+);
+
+const Row = ({ row }) => {
+  return (
+    <div>
+      <Col
+        row={row}
+        col='name'
+        component={TextInput}
+      />
+      <Col
+        row={row}
+        col='price'
+        component={TextInput}
+      />
+    </div>
+  );
+};
+```
