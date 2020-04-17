@@ -152,3 +152,18 @@ const Row = ({ row }) => {
   );
 };
 ```
+
+## Expected Features
+Each 'column' should be able to handle input events, keyboard events, etc.
+Additionally, it should be able to show columns like 'A5' when the user
+presses '='. Dragging, right click, etc, should all be handled by column.
+
+- Input control
+- Arrow keys
+- Overlay
+- Right click
+- Drag & drop
+
+Obviously, we can't implement all of them using normal input. We need to
+provide a UI component too.
+
