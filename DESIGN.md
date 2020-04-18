@@ -167,3 +167,16 @@ presses '='. Dragging, right click, etc, should all be handled by column.
 Obviously, we can't implement all of them using normal input. We need to
 provide a UI component too.
 
+## Subsystems
+Some of the features may not be wanted, and may applied on demand.
+Input control, and arrow keys are mandatory, but, overlay, right click, formula,
+right clicks are sometimes unnecessary.
+
+To allow this, we need to separate the logic - we need to build the 'core' parts
+first, then implement all the other features, using same context.
+
+The 'column', or rather, 'text input' should be responsible for handling events.
+This may be cumbersome - it could give props, or retrieve DOM element directly.
+
+Although 'useEvents' hooks may be available later, this is not available for
+now... It's inevitable to directly inject the event listeners.
