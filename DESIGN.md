@@ -167,6 +167,43 @@ presses '='. Dragging, right click, etc, should all be handled by column.
 Obviously, we can't implement all of them using normal input. We need to
 provide a UI component too.
 
+## ID mapping
+Even though the 'row ID' displayed to the user is number, we shouldn't use it
+internally. We can use any ID provided from the data container, but, that
+doesn't solve ordering problem. This is really critical - if we rely rendering
+to the 'application' side, we must know the ordering data.
+
+If data layer is not present, we have to rebuild the ordered set every time
+the data changes. This is really not ideal, and we should instead provide our
+own data layer instead.
+
+But then, it would become not expansive (it'd be become a framework, not
+a 'sheetify' layer.)
+
+Even though this would become a bottleneck, it can be overcomed if sane data
+layer is added. Therefore, we just ignore this performance penalty.
+
+If the user desires to enhance this, user may supply 'ordered data map' to the
+library; then the library will simply use that.
+
+Due to the nature of spreadsheets, there are two ways to represent each row
+and column. Each row / column can get a key, or we can just use a number.
+Obviously, using 'key' would be the best, since the rows can be moved freely.
+
+However, key cannot be sorted. We have to get key, and order data separately.
+This is just like React - React receives an array with every child filled with
+'key'.
+
+## Rows and columns
+Spreadsheets have fixed rows and columns. Most UIs have fixed rows, but have
+dynamic columns. react-sheetify should also support dynamic columns. This is
+implemented using 'merging columns' in spreadsheets; we don't support such
+thing. Instead, if we see 'invalid' column that is not drawn in the UI, we just
+skip the column.
+
+To do this, we have to build column data for every row, instead of using
+2D array.
+
 ## Subsystems
 Some of the features may not be wanted, and may applied on demand.
 Input control, and arrow keys are mandatory, but, overlay, right click, formula,
