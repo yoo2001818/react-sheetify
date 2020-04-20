@@ -81,15 +81,19 @@ const Sample = (
   <SheetProvider>
     <div>
       <Col
-        id={[0, 'id']}
-        index={[0, 0]}
+        row={0}
+        rowIndex={0}
+        col='id'
+        colIndex={0}
         component={TextInput}
         value={...}
         onChange={...}
       />
       <Col
-        id={[0, 'name']}
-        index={[0, 1]}
+        row={0}
+        rowIndex={0}
+        col='name'
+        colIndex={1}
         component={TextInput}
         value={...}
         onChange={...}
@@ -98,15 +102,22 @@ const Sample = (
   </SheetProvider>
 );
 
-// Or...
-const Row = () => {
-  const props = useColumn([0, 'id'], value, onChange);
-  return (
+// Moving on...
+const Sample = (
+  <SheetProvider>
     <div>
-      <TextInput {...props} />
+      <Row id={0} index={0}>
+        <Col
+          id='id'
+          index={0}
+          component={TextInput}
+          value={...}
+          onChange={...}
+        />
+      </Row>
     </div>
-  );
-};
+  </SheetProvider>
+);
 ```
 
 If react-sheetify should manage data on its own...
@@ -130,21 +141,19 @@ const Sample = (
 const App = () => (
   <RowList
     renderRow={(row) => (
-      <Row row={row} />
+      <RowItem row={row} />
     )}
   />
 );
 
-const Row = ({ row }) => {
+const RowItem = ({ row }) => {
   return (
     <div>
       <Col
-        row={row}
         col='name'
         component={TextInput}
       />
       <Col
-        row={row}
         col='price'
         component={TextInput}
       />
