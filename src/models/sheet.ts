@@ -1,6 +1,11 @@
+import { Row } from './row';
+
 export class Sheet {
-  // We have to manage each row.
+  rows: Map<string | number, Row>;
+  rowIndexes: Row[];
+
   constructor() {
-    
+    this.rows = new Map();
+    this.rowIndexes = [];
   }
 }
