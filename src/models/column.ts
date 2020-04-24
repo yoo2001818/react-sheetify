@@ -5,7 +5,12 @@ export interface ColumnImpl {
 }
 
 export class Column {
-  
+  impl: ColumnImpl | null;
+
+  constructor(impl: ColumnImpl | null) {
+    this.impl = impl;
+  }
+
   reportFocus(): void {
 
   }
@@ -15,7 +20,7 @@ export class Column {
   }
 
   setImpl(impl: ColumnImpl): void {
-
+    this.impl = impl;
   }
 
   focus(): void {
