@@ -1,5 +1,6 @@
 import { Row } from './row';
 import { ColumnImpl } from './column';
+import { Address } from './address';
 
 export class Sheet {
   rows: Map<string | number, Row>;
@@ -11,12 +12,14 @@ export class Sheet {
   }
 
   register(
-    row: string | number,
-    rowIndex: number,
-    col: string | number,
-    colIndex: number,
+    address: Address,
     impl: ColumnImpl,
   ): void {
-
+    let row = this.rows.get(address.row);
+    if (row == null) {
+      row = new Row(address.row);
+      this.rows.set(address.row, row);
+    }
+    return row.register(address, impl);
   }
 }
