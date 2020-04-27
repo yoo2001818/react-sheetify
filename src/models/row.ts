@@ -24,4 +24,14 @@ export class Row {
     }
     col.setImpl(impl);
   }
+
+  unregister(address: Address): void {
+    const col = this.columns.get(address.col);
+    if (col == null) return;
+    this.columns.delete(address.col);
+  }
+
+  isValid(): boolean {
+    return this.columns.size > 0;
+  }
 }

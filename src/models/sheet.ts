@@ -22,4 +22,13 @@ export class Sheet {
     }
     return row.register(address, impl);
   }
+
+  unregister(address: Address): void {
+    const row = this.rows.get(address.row);
+    if (row == null) return;
+    row.unregister(address);
+    if (!row.isValid()) {
+      this.rows.delete(address.row);
+    }
+  }
 }
