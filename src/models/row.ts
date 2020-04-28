@@ -19,7 +19,7 @@ export class Row {
   ): void {
     let col = this.columns.get(address.col);
     if (col == null) {
-      col = new Column(impl);
+      col = new Column(address.col, impl);
       this.columns.set(address.col, col);
     }
     col.setImpl(impl);

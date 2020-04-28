@@ -5,9 +5,11 @@ export interface ColumnImpl {
 }
 
 export class Column {
+  id: string | number;
   impl: ColumnImpl | null;
 
-  constructor(impl: ColumnImpl | null) {
+  constructor(id: string | number, impl: ColumnImpl | null) {
+    this.id = id;
     this.impl = impl;
   }
 
