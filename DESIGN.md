@@ -226,3 +226,20 @@ This may be cumbersome - it could give props, or retrieve DOM element directly.
 
 Although 'useEvents' hooks may be available later, this is not available for
 now... It's inevitable to directly inject the event listeners.
+
+## Data flow
+React-sheetify usually doesn't need to update the React state. However, if we
+use context naively, we'll end up updating React components every time we
+register / unregister the node. This will obviously end up in infinite loop.
+
+Instead of doing that, we need to handle every state on our own. We need to
+handle registering of the components, and receive focus / blur events from them.
+
+If the component reports arrow keys, or any other keys that involves other
+columns, we need to locate the column in the registry and 'wake' them up.
+
+Therefore, we have internal state, yet we don't need to interface directly with
+React.
+
+If we need to directly update React state, we can issue a signal to tell React
+to fetch data from the data store.
