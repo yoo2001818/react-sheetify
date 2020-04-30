@@ -31,4 +31,8 @@ export class Sheet {
       this.rows.delete(address.row);
     }
   }
+
+  offset(address: Address, row: number, col: number): ColumnImpl {
+    
+  }
 }
